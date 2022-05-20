@@ -40,7 +40,7 @@
       {% if twit.img %}
       <div class="twit-img"><img src="{{twit.img}}" alt="섬네일"></div>
       {% endif %}
-      {% if twit.User.id !== user.id %}
+      {% if twit.User.id === user.id %}
       <button class="twit-delete">삭제</button>
       {% endif %}
       <!-- <button class="twit-like">좋아요</button>

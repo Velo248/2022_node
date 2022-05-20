@@ -43,9 +43,6 @@
       {% if twit.User.id === user.id %}
       <button class="twit-delete">삭제</button>
       {% endif %}
-      <!-- <button class="twit-like">좋아요</button>
-      <button class="twit-unlike">좋아요 취소</button> -->
-
     </div>
     {% endfor %}
   </div>
@@ -114,7 +111,7 @@
       const twitId = tag.parentNode.querySelector('.twit-id').value;
       if (myId) {
         const userId = tag.parentNode.querySelector('.twit-user-id').value;
-        if (userId !== myId.value) {
+        if (userId === myId.value) {
           if (confirm('삭제합니까?')) {
             axios.delete(`/post/${twitId}`)
               .then(() => {
@@ -128,54 +125,5 @@
       }
     });
   });
-  // document.querySelectorAll('.twit-like').forEach(function (tag) {
-  //   tag.addEventListener('click', function () {
-  //     const myId = document.querySelector('#my-id');
-  //     if (myId) {
-  //       const twitId = tag.parentNode.querySelector('.twit-id').value;
-  //       if (userId !== myId.value) {
-  //         if (confirm('좋음?')) {
-  //           axios.post(`/post/${twitId}/like`)
-  //             .then(() => {
-  //               location.reload();
-  //             })
-  //             .catch((err) => {
-  //               console.error(err);
-  //             });
-  //         }
-  //       }
-  //     }
-  //   });
-  // });
-  // document.querySelectorAll('.twit-like').forEach(function (tag) {
-  //   tag.addEventListener('click', function () {
-  //     const myId = document.querySelector('#my-id');
-  //     if (myId) {
-  //       const twitId = tag.parentNode.querySelector('.twit-id').value;
-  //       axios.post(`/post/${twitId}/like`)
-  //         .then(() => {
-  //           location.reload();
-  //         })
-  //         .catch((err) => {
-  //           console.error(err);
-  //         });
-  //     }
-  //   });
-  // });
-  // document.querySelectorAll('.twit-unlike').forEach(function (tag) {
-  //   tag.addEventListener('click', function () {
-  //     const myId = document.querySelector('#my-id');
-  //     if (myId) {
-  //       const twitId = tag.parentNode.querySelector('.twit-id').value;
-  //       axios.delete(`/post/${twitId}/like`)
-  //         .then(() => {
-  //           location.reload();
-  //         })
-  //         .catch((err) => {
-  //           console.error(err);
-  //         });
-  //     }
-  //   });
-  // });
 </script>
 {% endblock %}

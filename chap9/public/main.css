@@ -46,6 +46,12 @@ input[type='text'], input[type='email'], input[type='password'], textarea {
   border: 1px solid silver;
   background: lightcoral;
 }
+.update_profile {
+  width: 100%;
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px 0;
+}
 .user-name { font-weight: bold; font-size: 18px; }
 .count { font-weight: bold; color: crimson; font-size: 18px; }
 .timeline {

@@ -2,6 +2,12 @@
 
 {% block content %}
   <div class="timeline">
+    <div class="update_profile">
+      <form method="post", action="/user/profile">
+        <input type="text" name="nick">
+        <button>닉네임 수정</button>
+      </form>
+    </div>
     <div class="followings half">
       <h2>팔로잉 목록</h2>
       {% if user.Followings %}

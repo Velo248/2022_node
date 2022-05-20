@@ -40,6 +40,9 @@
       {% if twit.img %}
       <div class="twit-img"><img src="{{twit.img}}" alt="섬네일"></div>
       {% endif %}
+      {% if twit.User.id !== user.id %}
+      <button class="twit-delete">삭제</button>
+      {% endif %}
       <!-- <button class="twit-like">좋아요</button>
       <button class="twit-unlike">좋아요 취소</button> -->
 
@@ -94,6 +97,26 @@
         if (userId !== myId.value) {
           if (confirm('팔로잉 하시겠습니까?')) {
             axios.post(`/user/${userId}/follow`)
+              .then(() => {
+                location.reload();
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+          }
+        }
+      }
+    });
+  });
+  document.querySelectorAll('.twit-delete').forEach(function (tag) {
+    tag.addEventListener('click', function () {
+      const myId = document.querySelector('#my-id');
+      const twitId = tag.parentNode.querySelector('.twit-id').value;
+      if (myId) {
+        const userId = tag.parentNode.querySelector('.twit-user-id').value;
+        if (userId !== myId.value) {
+          if (confirm('삭제합니까?')) {
+            axios.delete(`/post/${twitId}`)
               .then(() => {
                 location.reload();
               })

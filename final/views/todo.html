@@ -1,0 +1,67 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="timeline">
+    {% if user %}
+    <div>
+        <form id="calendar-form" action="/calendar/upload" method="post">
+            <div class="input-group">
+                <input id="calendar-title" type="text" name="title" placeholder="제목">
+            </div>
+            <div class="input-group">
+                <input id="calendar-date" type="date" name="date" value="">
+            </div>
+            <div class="input-group">
+                <textarea id="calendar-content" name="content"></textarea>
+            </div>
+            <div>
+                <button id="calendar-btn" type="submit" class="btn">업로드</button>
+            </div>
+        </form>
+        <div class="twits">
+            <form id="search-form" action="/search">
+              <input type="text" name="search" placeholder="내용 키워드 검색">
+              <button class="btn">검색</button>
+        </form>
+
+        {% for todo in todos %}
+        <div class="calendars">
+            <input type="hidden" value="{{todo.User.id}}" class="todo-user-id">
+            <input type="hidden" value="{{todo.id}}" class="todo-id">
+            <div class="todo-title">{{ todo.title }}</div>
+            <div class="todo-date">{{ todo.date }}</div>
+            <div class="todo-content">{{ todo.content }}</div>
+            <button class="todo-delete">삭제</button>
+        </div>
+        {% endfor %}
+
+
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+document.querySelectorAll('.todo-delete').forEach(function (tag) {
+    tag.addEventListener('click', function () {
+      const myId = document.querySelector('#my-id');
+      const todoId = tag.parentNode.querySelector('.todo-id').value;
+      if (myId) {
+        const userId = tag.parentNode.querySelector('.todo-user-id').value;
+        if (userId === myId.value) {
+          if (confirm('삭제합니까?')) {
+            axios.delete(`/calendar/${todoId}`)
+              .then(() => {
+                location.reload();
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+          }
+        }
+      }
+    });
+  });
+</script>
+{% endblock %}

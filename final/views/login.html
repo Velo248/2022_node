@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+ 
+{% block content %}
+    <div class="timeline">
+        <form id="login-form" action="/user/login" method="post">
+            <div class="input-group">
+                <label for="login-email">이메일</label>
+                <input id="login-email" type="email" name="email"></div>
+              <div class="input-group">
+                <label for="login-password">비밀번호</label>
+                <input id="login-password" type="password" name="password">
+              </div>
+              <button id="login-btn" type="submit" class="btn">로그인</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block script %}
+<script>
+  window.onload = () => {
+    if (new URL(location.href).searchParams.get('loginError')) {
+      alert(new URL(location.href).searchParams.get('loginError'));
+    }
+  };
+</script>
+{% endblock %}

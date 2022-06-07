@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="timeline">
+    <div class="half">
+        <h2>닉네임</h2>
+        <div>{{user.nick}}</div>
+        <button id="update-nick" class="btn">닉네임 수정</button>
+    </div>
+    <div class="half">
+        <h2>이메일</h2>
+        <div>{{user.email}}</div>
+    </div>
+    <div>
+        <button id="sign-out" class="btn">회원탈퇴</button>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+  <script>
+    document.getElementById('update-nick').addEventListener('click', async (e) => {
+        e.preventDefault();
+        const newNick = prompt('새로운 닉네임');
+        if(!newNick) {
+            return alert('비어있음');
+        }
+        else {
+            await axios.post('/user/update-nick', { newNick })
+            .then(() => {
+                location.reload();
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+        }
+    });
+
+    document.getElementById('sign-out').addEventListener('click', async (e) => {
+        e.preventDefault();
+        const flag = confirm('회원탈퇴 합니까?')
+        if(flag) {
+            await axios.post('/user/sign-out')
+            .then(() => {
+                location.reload();
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+        }
+        else {
+            return alert('signOut cancel');
+        }
+    });
+  </script>
+{% endblock %}
